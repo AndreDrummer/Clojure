@@ -57,3 +57,4 @@
 (println (valor-descontado 100))
 
 ;A cada redefinição de simbolo a ultima definição é a que vale.
+
