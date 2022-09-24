@@ -13,10 +13,14 @@
 
 (defn chega-em-pausado
   [hospital departamento pessoa]
+  (println "Tentando adicionar a pessoa " pessoa)
   (Thread/sleep (* (rand) 2000))
   (if (cabe-na-fila? hospital departamento)
     (do                                                     ;(Thread/sleep (* (rand) 2000))
-        (update hospital departamento conj pessoa))
+      (println "Dando o update " pessoa)
+      (update hospital departamento conj pessoa)
+      )
+
     (throw (ex-info "Fila já está cheia" {:tentando-adicionar pessoa}))))
 
 
