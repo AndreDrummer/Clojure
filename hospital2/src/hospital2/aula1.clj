@@ -32,7 +32,8 @@
   (def hospital (h.logic/chega-em-pausado hospital :espera pessoa))
   (println "Após inserir " pessoa)
   )
-
+; Aqui, por estarmos trabalhando com um unico valor definido de maneira global (root binding)
+; em um contexto multi-threaded, a inserção na fila so vai acontecer para a ultima execução da função!
 (defn simula-um-dia-em-paralelo []
   (def hospital (h.model/novo-hospital))
   (.start (Thread. (fn [] (chega-em-malvado 111))))

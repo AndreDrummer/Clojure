@@ -41,7 +41,7 @@
 
     ; com swap, OBSERVE QUE no swap se remove o simbolo de deref ("@")
     (swap! hospital-silveira update :laboratorio1 conj 111)
-    (pprint hospital-silveira)
+    (pprint @hospital-silveira)
     ))
 
 ;(testa-atomao)
@@ -62,8 +62,9 @@
     (.start (Thread. (fn [] (Thread/sleep 8000)
                        (pprint hospital))))))
 
-; estamos forçando situações nas quais o sqp! vai continuar tentando
+; estamos forçando situações nas quais o swap! vai continuar tentando
 ; realizar a atualização de um átomo. Isso ocorre por causa dos thread sleeps.
-; A função para o swap ficar retentando deve ser uma função pura.
+; A função para o swap ficar retentando deve ser uma função pura onde não há diferentes
+; resultados a cada execução.
 ; Essa é a vantagem de usar swap.
 (simula-um-dia-em-paralelo)
