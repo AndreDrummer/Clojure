@@ -33,3 +33,38 @@
   ;     (update hospital departamento)
   ;     )
   )
+
+(defn proxima
+  [hospital departamento]
+  "Retorna a próxima pessoa da fila"
+  (-> hospital departamento peek))
+
+(defn transfere [hospital de para]
+  "Transfere o próximo paciente da fila 'de' para a fila 'para'"
+  (let [pessoa (proxima hospital de)]
+    (-> hospital
+        (atende de)
+        (chega-em para pessoa))
+    )
+  )
+
+; Esse aqui apesar da simplicidad, funciona bem
+(defn atende-completo
+  [hospital departamento]
+  {
+   :paciente (update hospital departamento peek)
+   :hospital (update hospital departamento pop)
+   }
+  )
+
+; Código aqui é mais complexo e maior, não fica bom usar ele.
+(defn atende-completo-que-chama-ambos [hospital departamento]
+  (let [fila (get hospital departamento)
+        peek-pop (juxt peek pop)                            ; juxt, chama várias funções com os parametros passados
+        [pessoa fila-atualizada] (peek-pop fila)
+        hospital-atualizado (update hospital assoc departamento fila-atualizada)
+        ]
+    {
+     :paciente pessoa
+     :hospital hospital-atualizado
+     }))

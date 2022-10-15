@@ -10,7 +10,7 @@
   )
 
 (defn simula-um-dia-em-paralelo-com-mapv []
-  "Simulação utilizando um mapv para força quase que imperativamente a execução do que era lazy, o map no caso"
+  "Simulação utilizando um mapv para forçar quase que imperativamente a execução do que era lazy, o map no caso"
   (let [hospital (atom (h.model/novo-hospital))
         pessoas [111, 222, 333, 444, 555, 666]]
 
@@ -50,10 +50,11 @@
     (.start (Thread. (fn [] (Thread/sleep 8000)
                        (pprint hospital))))))
 
-;(simula-um-dia-em-paralelo-com-partial)
+(simula-um-dia-em-paralelo-com-partial)
 
 
-(defn "Preocupa-se em executar para os elementos da sequencia" simula-um-dia-em-paralelo-com-doseq []
+(defn  simula-um-dia-em-paralelo-com-doseq []
+  "Preocupa-se em executar para os elementos da sequencia"
   (let [hospital (atom (h.model/novo-hospital))
         pessoas (range 6)]
 
@@ -66,7 +67,8 @@
 ;(simula-um-dia-em-paralelo-com-doseq)
 
 
-(defn "Preocupa-se em executar N vezes" simula-um-dia-em-paralelo-com-dotimes []
+(defn  simula-um-dia-em-paralelo-com-dotimes []
+  "Preocupa-se em executar N vezes"
   (let [hospital (atom (h.model/novo-hospital))]
 
     (dotimes [pessoa 6]
@@ -75,5 +77,5 @@
     (.start (Thread. (fn [] (Thread/sleep 8000)
                        (pprint hospital))))))
 
-(simula-um-dia-em-paralelo-com-dotimes)
+;(simula-um-dia-em-paralelo-com-dotimes)
 
