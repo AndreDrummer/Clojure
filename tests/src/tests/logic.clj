@@ -1,4 +1,7 @@
-(ns tests.logic)
+(ns tests.logic
+  (:require
+    [tests.model :as h.model]
+    [schema.core :as s]))
 
 ; TDD
 ; Test Driven Development
@@ -77,17 +80,27 @@
     (update hospital departamento conj pessoa)
     (throw (ex-info "Não cabe ninguém neste departamento." {:paciente pessoa}))))
 
-(defn atende
-  [hospital departamento]
+(s/defn atende :- h.model/Hospital
+  [hospital :- h.model/Hospital departamento :- s/Keyword]
   (update hospital departamento pop))
 
-(defn proxima
-  [hospital departamento]
+(s/defn proxima :- h.model/PacienteID
+  [hospital :- h.model/Hospital departamento :- s/Keyword]
   "Retorna a próxima pessoa da fila"
   (-> hospital departamento peek))
 
-(defn transfere [hospital de para]
+(defn mesmo-tamanho? [hospital, outro-hospital, de, para]
+  (= (+ (count (get outro-hospital de)) (count (get outro-hospital para)))
+     (+ (count (get hospital de)) (count (get hospital para))))
+  )
+
+(s/defn transfere :- h.model/Hospital
   "Transfere o próximo paciente da fila 'de' para a fila 'para'"
+  [hospital :- h.model/Hospital de :- s/Keyword para :- s/Keyword]
+  {
+   :pre  [(contains? hospital de), (contains? hospital para)]
+   :post [(mesmo-tamanho? hospital % de para)]
+   }
   (let [pessoa (proxima hospital de)]
     (-> hospital
         (atende de)

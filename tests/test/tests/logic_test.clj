@@ -2,7 +2,10 @@
   (:use clojure.pprint)
   (:require [clojure.test :refer :all]
             [tests.logic :refer :all]
-            [tests.model :as h.model]))
+            [tests.model :as h.model]
+            [schema.core :as s]))
+
+(s/set-fn-validation! true)
 
 (deftest cabe-na-fila?-test
 
@@ -88,26 +91,38 @@
     )
   )
 
-
 (deftest transfere-test
   (testing "Aceita pessoas se cabe"
-    (let [hospital-original {:espera [7] :raio-x []}]
+    (let [hospital-original {:espera (conj h.model/fila-vazia "5") :raio-x h.model/fila-vazia}]
       (is (= {:espera []
-              :raio-x [7]}
+              :raio-x ["5"]}
              (transfere hospital-original :espera :raio-x)))
       )
 
-    (let [hospital-original {:espera (conj h.model/fila-vazia 51 5) :raio-x (conj h.model/fila-vazia 13)}]
-      (is (= {:espera [5]
-              :raio-x [13 51]}
+    (let [hospital-original {:espera (conj h.model/fila-vazia "51" "5") :raio-x (conj h.model/fila-vazia "13")}]
+      (is (= {:espera ["5"]
+              :raio-x ["13" "51"]}
              (transfere hospital-original :espera :raio-x)))
       )
     )
 
   (testing "Recusa pessoas se não cabe"
-    (let [hospital-cheio {:espera [7] :raio-x [9 4 6 7 5]}]
+    (let [hospital-cheio {:espera (conj h.model/fila-vazia 5) :raio-x (conj h.model/fila-vazia "54" "87" "65" "5" "41")}]
       (is (thrown? clojure.lang.ExceptionInfo
                    (transfere hospital-cheio :espera :raio-x)))
+      )
+    )
+
+  (testing "Não pode invocar transferencia sem hospital"
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (transfere nil :espera :raio-x))))
+
+  (testing "condições obrigatórias"
+    (let [hospital {:espera (conj h.model/fila-vazia "5") :raio-x (conj h.model/fila-vazia "54" "87" "65" "5" "41")}]
+      (is (thrown? AssertionError
+                   (transfere hospital :nao-existe :raio-x)))
+      (is (thrown? AssertionError
+                   (transfere hospital :raio-x :nao-existe)))
       )
     )
   )
