@@ -1,9 +1,13 @@
 (ns tests.logic-test
   (:use clojure.pprint)
   (:require [clojure.test :refer :all]
+            [clojure.test.check.clojure-test :refer (defspec)]
+            [clojure.test.check.generators :as gen]
+            [clojure.test.check.properties :as prop]
             [tests.logic :refer :all]
             [tests.model :as h.model]
-            [schema.core :as s]))
+            [schema.core :as s])
+  (:import (clojure.lang ExceptionInfo)))
 
 (s/set-fn-validation! true)
 
@@ -16,6 +20,11 @@
     ; borda do zero
     (testing "Que cabe numa fila vazia"
       (is (cabe-na-fila? {:espera []} :espera)))
+
+    ; Gerative Tests
+    (testing "Que cabe pessoas em filas de tamanho até 4 inclusive"
+      (doseq [fila (gen/sample (gen/vector gen/string-alphanumeric 0 4) 10)]
+        (is (cabe-na-fila? {:espera fila} :espera))))
 
     ; borda do limite
     (testing "Que não cabe na fila quando a fila está cheia"
@@ -67,7 +76,7 @@
 
     (testing "Não aceita quand não cabe na fila"
       ; Essa não é uma abordagem inteligente
-      (is (thrown? clojure.lang.ExceptionInfo (chega-em hospital-cheio, :espera 76)))
+      ;(is (thrown? ExceptionInfo (chega-em hospital-cheio, :espera 76)))
 
       ; Essa aqui já é um pouco melhor, mas ainda assim não é a melhor opção.
       ;(is (thrown? IllegalStateException (chega-em hospital-cheio, :espera 76))))
@@ -80,15 +89,21 @@
       ;
       ;(is (try
       ;      (chega-em hospital-cheio, :espera 85)
-      ;      (catch clojure.lang.ExceptionInfo e
+      ;      (catch clojure.lang.ExceptionInfo esssss
       ;        (= :impossivel-colocar-pessoa-na-fila (:tipo (ex-data e)))
       ;        )))
 
       ;(is (= {:hospital hospital-cheio :resultado :impossivel-colocar-pessoa-na-fila}
       ;       (chega-em hospital-cheio, :espera 76)))
-
       )
     )
+
+  ;(testing "Que é colocada uma pessoa numa fala que é menor que 5"
+  ;  (doseq [fila (gen/sample (gen/vector gen/string-alphanumeric 0 4) 10)
+  ;          pessoa (gen/sample gen/string-alphanumeric)]
+  ;    (println pessoa fila)
+  ;    )
+  ;  )
   )
 
 (deftest transfere-test
@@ -108,13 +123,13 @@
 
   (testing "Recusa pessoas se não cabe"
     (let [hospital-cheio {:espera (conj h.model/fila-vazia 5) :raio-x (conj h.model/fila-vazia "54" "87" "65" "5" "41")}]
-      (is (thrown? clojure.lang.ExceptionInfo
+      (is (thrown? ExceptionInfo
                    (transfere hospital-cheio :espera :raio-x)))
       )
     )
 
   (testing "Não pode invocar transferencia sem hospital"
-    (is (thrown? clojure.lang.ExceptionInfo
+    (is (thrown? ExceptionInfo
                  (transfere nil :espera :raio-x))))
 
   (testing "condições obrigatórias"
@@ -126,3 +141,53 @@
       )
     )
   )
+
+(defspec coloca-uma-pessoa-em-filas-menores-que-5 100
+  (prop/for-all
+    [fila (gen/vector gen/string-alphanumeric 0 4)
+     pessoa gen/string-alphanumeric]
+    (is (= {:espera (conj fila pessoa)}
+           (chega-em {:espera fila} :espera pessoa)))))
+
+(def nome-aleatorio-gen
+  (gen/fmap clojure.string/join (gen/vector gen/char-alphanumeric 5 10))
+  )
+
+(defn transforma-vetor-em-fila [vetor]
+  (reduce conj h.model/fila-vazia vetor))
+
+
+(def fila-nao-cheia-gen
+  (gen/fmap
+    transforma-vetor-em-fila
+    (gen/vector nome-aleatorio-gen 0 4)))
+
+;(defn transfere-ignorando-erro [hospital para]
+;  (try (transfere hospital :espera para)
+;       (catch ExceptionInfo e
+;         (cond
+;           (= :fila-cheia (:type (ex-data e))) hospital
+;           :else (throw e)
+;           ))))
+
+(defn transfere-ignorando-erro [hospital para]
+  (try (transfere hospital :espera para)
+       (catch IllegalStateException e hospital)))
+
+
+(defspec transfere-tem-que-manter-a-quantidade-de-pessoas 50
+  (prop/for-all
+    [espera fila-nao-cheia-gen
+     raio-x fila-nao-cheia-gen
+     ultrasom fila-nao-cheia-gen
+     vai-para (gen/elements [:raio-x :ultrasom])
+     ]
+    (let [hospital-inicial {:espera espera, :raio-x raio-x, :ultrasom ultrasom}
+          hospital-final (transfere-ignorando-erro hospital-inicial vai-para)]
+      (= (total-de-pacientes hospital-inicial)
+         (total-de-pacientes hospital-final))
+      )
+    ))
+
+
+

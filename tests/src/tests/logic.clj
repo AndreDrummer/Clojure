@@ -1,7 +1,8 @@
 (ns tests.logic
   (:require
     [tests.model :as h.model]
-    [schema.core :as s]))
+    [schema.core :as s]
+    [clojure.test.check.generators :as gen]))
 
 ; TDD
 ; Test Driven Development
@@ -35,6 +36,13 @@
           departamento
           count
           (< 5)))
+
+(defn kray [x y]
+  "Teste purpose"
+  (println (* x y))
+  )
+
+
 
 ;(defn chega-em
 ;  [hospital departamento pessoa]
@@ -78,13 +86,13 @@
   [hospital departamento pessoa]
   (if (cabe-na-fila? hospital departamento)
     (update hospital departamento conj pessoa)
-    (throw (ex-info "Não cabe ninguém neste departamento." {:paciente pessoa}))))
+    (throw (IllegalStateException. "Não cabe ninguém neste departamento." {:paciente pessoa}))))
 
 (s/defn atende :- h.model/Hospital
   [hospital :- h.model/Hospital departamento :- s/Keyword]
   (update hospital departamento pop))
 
-(s/defn proxima :- h.model/PacienteID
+(s/defn proxima :- (s/maybe h.model/PacienteID)
   [hospital :- h.model/Hospital departamento :- s/Keyword]
   "Retorna a próxima pessoa da fila"
   (-> hospital departamento peek))
@@ -101,9 +109,14 @@
    :pre  [(contains? hospital de), (contains? hospital para)]
    :post [(mesmo-tamanho? hospital % de para)]
    }
-  (let [pessoa (proxima hospital de)]
+  (if-let [pessoa (proxima hospital de)]
     (-> hospital
         (atende de)
         (chega-em para pessoa))
-    )
+    hospital))
+
+(defn total-de-pacientes [hospital]
+  (reduce + (map count (vals hospital)))
   )
+
+
