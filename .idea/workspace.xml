@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f5e774db-a3b0-423f-8af0-b93267dc49cd" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ClojureProjectResolveSettings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/clojure.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Leiningen__nrepl_1_0_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Leiningen__org_clojure_clojure_1_10_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Leiningen__org_clojure_core_specs_alpha_0_2_44.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Leiningen__org_clojure_spec_alpha_0_2_176.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Leiningen__org_nrepl_incomplete_0_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Leiningen__prismatic_schema_1_3_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/.idea/ClojureProjectResolveSettings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/.idea/libraries/Leiningen__nrepl_1_0_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/.idea/libraries/Leiningen__org_clojure_clojure_1_10_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/.idea/libraries/Leiningen__org_clojure_core_specs_alpha_0_2_44.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/.idea/libraries/Leiningen__org_clojure_spec_alpha_0_2_176.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/.idea/libraries/Leiningen__org_clojure_test_check_0_10_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/.idea/libraries/Leiningen__org_nrepl_incomplete_0_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/.idea/libraries/Leiningen__prismatic_schema_1_1_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/.idea/repl-commands.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/CHANGELOG.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/doc/intro.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/project.clj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/src/generative/model.clj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/src/tests/core.clj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/src/tests/logic.clj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/src/tests/model.clj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test/tests/core_test.clj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test/tests/logic_test.clj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tests.iml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2LSnf1yJfdjj2D1a62PHQ3H2SxT" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "show.migrate.to.gradle.popup": "false"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="Babashka" factoryName="BabashkaLocalRepl" activateToolWindowBeforeRun="false">
+      <setting name="displayName" value="" />
+      <setting name="bbPath" value="" />
+      <setting name="parameters" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <setting name="workingDir" value="" />
+      <setting name="focusEditor" value="false" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ClojureREPL" factoryName="Local" activateToolWindowBeforeRun="false">
+      <setting name="displayName" value="" />
+      <setting name="replType" value="NREPL" />
+      <setting name="execution" value="LEININGEN" />
+      <setting name="jvmArgs" value="" />
+      <setting name="parameters" value="" />
+      <setting name="workingDir" value="" />
+      <setting name="profiles" value="" />
+      <setting name="aliases" value="" />
+      <setting name="fixLineNumbers" value="false" />
+      <setting name="focusEditor" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="ClojureREPL" factoryName="Remote" activateToolWindowBeforeRun="false">
+      <setting name="displayName" value="" />
+      <setting name="host" value="" />
+      <setting name="port" value="0" />
+      <setting name="replType" value="SOCKET" />
+      <setting name="configType" value="SPECIFY" />
+      <setting name="replPortFileType" value="STANDARD" />
+      <setting name="customPortFile" value="" />
+      <setting name="fixLineNumbers" value="false" />
+      <setting name="focusEditor" value="false" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f5e774db-a3b0-423f-8af0-b93267dc49cd" name="Changes" comment="" />
+      <created>1675873452516</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1675873452516</updated>
+    </task>
+    <servers />
+  </component>
+</project>
